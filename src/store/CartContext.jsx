@@ -24,11 +24,11 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => setCartItems([]);
 
-  // ── Wishlist actions ──────────────────────────
+  // ── Wishlist actions 
   const toggleWishlist = (id) =>
     setWishlist((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
 
-  // ── Derived values ────────────────────────────
+  // ── Derived values 
   const cartCount = cartItems.reduce((s, i) => s + i.qty, 0);
   const cartTotal = cartItems.reduce((s, i) => s + i.price * i.qty, 0);
 

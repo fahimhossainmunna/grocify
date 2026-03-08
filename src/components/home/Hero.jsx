@@ -2,10 +2,9 @@ import groceryImg from "../../assets/grocery.png";
 import useCountUp from "../../hooks/useCountUp";
 
 const Hero = () => {
-  // Count-up hooks — screen এ দেখা গেলে animate হবে
-  const customers = useCountUp(10, 2000);   // 10K+
-  const products  = useCountUp(500, 2200);  // 500+
-  const organic   = useCountUp(99, 1800);   // 99%
+  const customers = useCountUp(10, 2000); 
+  const products  = useCountUp(500, 2200); 
+  const organic   = useCountUp(99, 1800);   
 
   const stats = [
     { hookData: customers, value: customers.count, suffix: "K+", label: "Happy Customers" },

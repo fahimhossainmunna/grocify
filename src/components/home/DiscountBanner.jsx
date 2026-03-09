@@ -22,7 +22,7 @@ const DiscountBanner = () => {
           </div>
 
           {/* vertical divider — only md+ */}
-          <div className="hidden md:block w-px h-32 bg-gradient-to-b from-transparent via-orange-300 to-transparent self-center mx-6 shrink-0" />
+          <div className="hidden md:block w-px h-32 bg-linear-to-b from-transparent via-orange-300 to-transparent self-center mx-6 shrink-0" />
 
           {/* content */}
           <div className="max-w-xl w-full">

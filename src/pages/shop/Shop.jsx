@@ -134,7 +134,7 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* Info */}
-      <div style={{ padding:"14px 18px 18px", flex:1, display:"flex", flexDirection:"column", gap:8 }}>
+      <div className="card-info" style={{ padding:"14px 18px 18px", flex:1, display:"flex", flexDirection:"column", gap:8 }}>
         {bc && (
           <span style={{ fontSize:10, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", background:bc.bg, color:bc.color, border:`1px solid ${bc.border}`, borderRadius:999, padding:"2px 10px", alignSelf:"flex-start" }}>
             {product.badge}
@@ -145,7 +145,7 @@ const ProductCard = ({ product }) => {
           <Stars rating={product.rating}/>
           <span style={{ fontSize:11, color:"#a3a3a3", fontWeight:500 }}>({product.reviews})</span>
         </div>
-        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginTop:"auto", paddingTop:6 }}>
+        <div className="card-price-row" style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginTop:"auto", paddingTop:6 }}>
           <div>
             <span style={{ fontSize:18, fontWeight:800, color:"#18181b" }}>{fmt(product.price)}</span>
             <span style={{ fontSize:11, color:"#a3a3a3", marginLeft:6, textDecoration:"line-through" }}>{fmt(product.old)}</span>
@@ -250,12 +250,25 @@ const Shop = () => {
         .sort-select:focus { border-color: #f97316; }
         .search-input { border: 1.5px solid #e5e5e5; background: #fff; border-radius: 12px; padding: 9px 16px 9px 40px; font-size: 13px; font-weight: 500; color: #18181b; outline: none; font-family: 'DM Sans',sans-serif; transition: border-color .2s; width: 220px; }
         .search-input:focus { border-color: #f97316; }
-        .search-input::placeholder { color: #a3a3a3; }
+        .card-img { width: 100%; max-width: 130px; height: 130px; object-fit: contain; transition: transform .35s; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.10)); }
+        .card-info { padding: 14px 18px 18px; }
+        @media (max-width: 768px) { 
+          .card-img { max-width: 90px !important; height: 90px !important; }
+          .card-info { padding: 10px 12px 14px !important; }
+        }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 22px; }
+        .card-price-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 6px; }
         @media (max-width: 768px) {
           .shop-toolbar { flex-direction: column !important; align-items: flex-start !important; }
           .search-input { width: 100% !important; }
-          .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 14px; }
+          .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        }
+        @media (max-width: 400px) {
+          .product-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+          .card-price-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+          .card-price-row button { width: 100%; justify-content: center; }
         }
       `}</style>
 

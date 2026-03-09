@@ -88,7 +88,7 @@ const StepItem = ({ step, index }) => {
       {isTop && (
         <div style={{ marginBottom: 24, textAlign: "left", width: "100%", maxWidth: 200 }}>
           {/* Icon circle */}
-          <div style={{
+          <div className="op-icon-circle" style={{
             width: 44, height: 44, borderRadius: "50%",
             background: "#f97316",
             display: "flex", alignItems: "center", justifyContent: "center",
@@ -108,8 +108,7 @@ const StepItem = ({ step, index }) => {
 
       {/* NUMBER CIRCLE */}
       <div style={{ position: "relative", zIndex: 2 }}>
-        {/* Dashed outer ring */}
-        <div style={{
+        <div className="op-num-circle" style={{
           width: 72, height: 72, borderRadius: "50%",
           border: "2px dashed rgba(249,115,22,0.35)",
           display: "flex", alignItems: "center", justifyContent: "center",
@@ -174,7 +173,22 @@ const OurProcess = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=DM+Sans:wght@400;500;700;800;900&display=swap');
         .op-root * { box-sizing: border-box; }
-        .op-connector { flex: 1; height: 2px; background: linear-gradient(90deg, #f97316, rgba(249,115,22,0.2)); margin-top: 0; position: relative; top: 0; }
+        .op-steps-row { display: flex; align-items: center; gap: 0; position: relative; z-index: 2; }
+        .op-line { position: absolute; left: 8%; right: 8%; top: 50%; height: 2px; background: linear-gradient(90deg,#f97316,rgba(249,115,22,0.15),#f97316,rgba(249,115,22,0.15)); z-index: 1; transform: translateY(-50%); }
+        .op-mobile-list { display: none; flex-direction: column; gap: 20px; }
+        .op-num-circle { transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease; }
+        .op-num-circle:hover { transform: scale(1.12); box-shadow: 0 8px 28px rgba(249,115,22,0.25) !important; }
+        .op-icon-circle { transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease; }
+        .op-icon-circle:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(249,115,22,0.40) !important; }
+        .op-step-card { transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease, border-color 0.3s ease; }
+        .op-step-card:hover { transform: translateX(7px); box-shadow: 0 8px 28px rgba(249,115,22,0.13) !important; border-color: #fed7aa !important; }
+        .op-step-card:hover .op-step-icon { background: #f97316 !important; border-color: #f97316 !important; color: #fff !important; }
+        .op-step-icon { transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease !important; }
+        @media (max-width: 700px) {
+          .op-steps-row { display: none !important; }
+          .op-line { display: none !important; }
+          .op-mobile-list { display: flex !important; }
+        }
       `}</style>
 
       <section className="op-root" style={{ padding: "96px 24px", background: "#fff" }}>
@@ -197,26 +211,55 @@ const OurProcess = () => {
             <div style={{ width: 56, height: 3, background: "linear-gradient(90deg,#f97316,#fbbf24)", borderRadius: 2, marginTop: 14, margin: "14px auto 0" }} />
           </div>
 
-          {/* Zigzag steps */}
+          {/* Zigzag steps — desktop */}
           <div style={{ position: "relative" }}>
-
-            {/* Horizontal connector line — sits at the number row */}
-            <div style={{
-              position: "absolute",
-              left: "8%", right: "8%",
-              top: "calc(50% + 0px)",
-              height: 2,
-              background: "linear-gradient(90deg,#f97316,rgba(249,115,22,0.15),#f97316,rgba(249,115,22,0.15))",
-              zIndex: 1,
-              transform: "translateY(-50%)",
-            }} />
-
-            {/* Steps row */}
-            <div style={{ display: "flex", alignItems: "center", gap: 0, position: "relative", zIndex: 2 }}>
+            <div className="op-line" />
+            <div className="op-steps-row">
               {STEPS.map((step, i) => (
                 <StepItem key={step.number} step={step} index={i} />
               ))}
             </div>
+          </div>
+
+          {/* Mobile — premium vertical stepper */}
+          <div className="op-mobile-list">
+            {STEPS.map((step, i) => (
+              <div key={step.number}>
+                {/* Step card */}
+                <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
+                  {/* Left: number + arrow line */}
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
+                    {/* Number circle */}
+                    <div style={{ width: 56, height: 56, borderRadius: "50%", border: "2px dashed rgba(249,115,22,0.40)", display: "flex", alignItems: "center", justifyContent: "center", background: "#fff", boxShadow: "0 4px 16px rgba(249,115,22,0.12)" }}>
+                      <div style={{ width: 42, height: 42, borderRadius: "50%", background: "#f97316", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(249,115,22,0.35)" }}>
+                        <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 18, fontWeight: 900, color: "#fff" }}>{step.number}</span>
+                      </div>
+                    </div>
+                    {/* Arrow line — only between steps, not after last */}
+                    {i < STEPS.length - 1 && (
+                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: 4 }}>
+                        <div style={{ width: 2, height: 28, background: "linear-gradient(to bottom, #f97316, rgba(249,115,22,0.3))" }} />
+                        {/* Arrowhead */}
+                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                          <path d="M1 1L6 7L11 1" stroke="#f97316" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Right: content card */}
+                  <div className="op-step-card" style={{ flex: 1, background: "#fff", borderRadius: 16, border: "1.5px solid #f4f4f5", boxShadow: "0 2px 16px rgba(0,0,0,0.05)", padding: "16px 18px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                      <div className="op-step-icon" style={{ width: 36, height: 36, borderRadius: "50%", background: "#fff7ed", border: "1.5px solid #fed7aa", display: "flex", alignItems: "center", justifyContent: "center", color: "#f97316", flexShrink: 0 }}>
+                        {step.icon}
+                      </div>
+                      <h4 style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 15, fontWeight: 800, color: "#18181b", margin: 0, letterSpacing: "-0.01em" }}>{step.title}</h4>
+                    </div>
+                    <p style={{ fontSize: 12.5, color: "#71717a", lineHeight: 1.8, margin: 0 }}>{step.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
         </Container>

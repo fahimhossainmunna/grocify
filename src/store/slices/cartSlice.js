@@ -41,6 +41,9 @@ const cartSlice = createSlice({
         state.wishlist.push(id);
       }
     },
+    clearWishlist: (state) => {
+      state.wishlist = [];
+    },
     setShowCart: (state, action) => {
       state.showCart = action.payload;
     },
@@ -53,6 +56,7 @@ export const {
   updateQty,
   clearCart,
   toggleWishlist,
+  clearWishlist,
   setShowCart,
 } = cartSlice.actions;
 

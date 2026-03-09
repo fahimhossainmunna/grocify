@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import basketImg from "../../assets/basket-full-vegetables.png";
 import freshFruitsImg from "../../assets/fresh-fruits.png";
 import fruitsVeggiesImg from "../../assets/fruits-and-veggies.png";
-import dairyImg from "../../assets/dairy-and-eggs.png";
 
 /* ── useInView hook ───────────────────────────────────────── */
 const useInView = (threshold = 0.15) => {

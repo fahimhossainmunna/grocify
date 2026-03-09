@@ -1,6 +1,14 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useCart } from "../../store/CartContext";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  toggleWishlist,
+  setShowCart,
+  selectCartItems,
+  selectCartCount,
+  selectWishlist,
+} from "../../store/slices/cartSlice";
 
 import allBannerImg     from "../../assets/all-banner.jpg";
 import bananaImg        from "../../assets/banana.png";
@@ -101,7 +109,9 @@ const Stars = ({ rating }) => (
 
 /* ── Product Card ─────────────────────────────────────────── */
 const ProductCard = ({ product }) => {
-  const { addToCart, cartItems, wishlist, toggleWishlist } = useCart();
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+  const wishlist  = useSelector(selectWishlist);
   const isInCart = cartItems.some(i => i.id === product.id);
   const isWished = wishlist.includes(product.id);
   const discount = Math.round(((product.old - product.price) / product.old) * 100);
@@ -118,7 +128,7 @@ const ProductCard = ({ product }) => {
       )}
 
       {/* Wishlist button */}
-      <button onClick={() => toggleWishlist(product.id)}
+      <button onClick={() => dispatch(toggleWishlist(product.id))}
         style={{ position:"absolute", top:12, right:12, zIndex:2, background: isWished ? "#fff7ed" : "#fff", border: isWished ? "1.5px solid #fed7aa" : "1.5px solid #f4f4f5", borderRadius:"50%", width:34, height:34, display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer", transition:"all .2s" }}>
         <svg width="15" height="15" viewBox="0 0 24 24"
           fill={isWished ? "#f97316" : "none"} stroke={isWished ? "#f97316" : "#a3a3a3"}
@@ -151,7 +161,7 @@ const ProductCard = ({ product }) => {
             <span style={{ fontSize:11, color:"#a3a3a3", marginLeft:6, textDecoration:"line-through" }}>{fmt(product.old)}</span>
             <div style={{ fontSize:10, color:"#a3a3a3", marginTop:1 }}>per {product.unit}</div>
           </div>
-          <button onClick={() => addToCart(product)}
+          <button onClick={() => dispatch(addToCart(product))}
             style={{ display:"flex", alignItems:"center", gap:6, background: isInCart ? "#16a34a" : "#f97316", color:"#fff", border:"none", borderRadius:12, padding:"9px 14px", fontSize:12, fontWeight:700, cursor:"pointer", transition:"all .22s", whiteSpace:"nowrap" }}>
             {isInCart ? (
               <><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>Added</>
@@ -195,7 +205,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => (
 
 /* ── Shop Page ────────────────────────────────────────────── */
 const Shop = () => {
-  const { cartCount, setShowCart } = useCart();
+  const dispatch  = useDispatch();
+  const cartCount = useSelector(selectCartCount);
   const [searchParams] = useSearchParams();
 
   const urlCategoryMap = { fruits: "Fruits", veggies: "Veggies", dairy: "Dairy", meat: "Meat" };
@@ -295,7 +306,7 @@ const Shop = () => {
               </div>
 
               {/* My Cart button → opens global cart drawer */}
-              <button onClick={() => setShowCart(true)}
+              <button onClick={() => dispatch(setShowCart(true))}
                 style={{ display:"flex", alignItems:"center", gap:10, background:"#18181b", color:"#fff", border:"none", borderRadius:14, padding:"12px 22px", fontSize:13, fontWeight:700, cursor:"pointer", fontFamily:"'DM Sans',sans-serif", transition:"background .2s" }}
                 onMouseOver={e => e.currentTarget.style.background="#f97316"}
                 onMouseOut={e => e.currentTarget.style.background="#18181b"}>

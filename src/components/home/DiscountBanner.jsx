@@ -8,7 +8,7 @@ const DiscountBanner = () => {
       style={{ backgroundImage: `url(${FreshFruits})` }}
     >
       {/* gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-zinc-100 via-zinc-100/95 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-r from-zinc-100 via-zinc-100/95 to-transparent pointer-events-none" />
 
       <Container>
         <div className="py-10 md:py-14 flex flex-col md:flex-row items-center gap-4 md:gap-2 relative">

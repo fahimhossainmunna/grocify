@@ -53,11 +53,11 @@ const LeafDeco = () => (
 
 const FOOTER_LINKS = {
   "Quick Links": [
-    { label: "Home", href: "/" },
-    { label: "Shop", href: "/shop" },
-    { label: "About Us", href: "/about" },
-    { label: "Process", href: "/process" },
-    { label: "Contact Us", href: "/contact" },
+    { label: "Home", to: "/" },
+    { label: "Shop", to: "/shop" },
+    { label: "About Us", to: "/about" },
+    { label: "Process", to: "/process" },
+    { label: "Contact Us", to: "/contact" },
   ],
   Support: [
     { label: "FAQ", to: "/faq" },

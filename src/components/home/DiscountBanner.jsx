@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import FreshFruits from '../../assets/fresh-fruits.png';
 import Container from "../ui/Container";
 
@@ -49,9 +50,13 @@ const DiscountBanner = () => {
             </p>
 
             <div className="flex items-center gap-3 flex-wrap">
-              <button className="py-3 px-7 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-200 text-sm">
+              {/* Link to /shop instead of plain button */}
+              <Link
+                to="/shop"
+                className="py-3 px-7 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-200 text-sm"
+              >
                 Get A Discount →
-              </button>
+              </Link>
               <div className="flex items-center gap-2 border-2 border-dashed border-orange-300 rounded-xl px-4 py-2.5">
                 <span className="text-[10px] font-bold tracking-widest uppercase text-zinc-400">Code:</span>
                 <span className="text-sm font-black tracking-widest text-orange-500">FRESH20</span>

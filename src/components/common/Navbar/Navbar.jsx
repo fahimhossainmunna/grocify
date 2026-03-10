@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { FaUserAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useNavbar from "../../../hooks/useNavbar";
 import {
-  addToCart, removeFromCart, updateQty, clearCart,
-  toggleWishlist, setShowCart,
+  removeFromCart, updateQty, clearCart,
+  setShowCart,
   selectCartItems, selectCartCount, selectCartTotal,
   selectWishlist, selectShowCart,
 } from "../../../store/slices/cartSlice";
@@ -45,14 +45,7 @@ const UserDropdown = ({ user, onClose }) => {
   ];
 
   return (
-    <div style={{
-      position:"absolute", top:"calc(100% + 10px)", right:0,
-      width:220, background:"#fff", borderRadius:16,
-      border:"1.5px solid #f4f4f5",
-      boxShadow:"0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
-      overflow:"hidden", zIndex:200,
-      animation:"dropdownIn .2s cubic-bezier(.34,1.3,.64,1)",
-    }}>
+    <div style={{ position:"absolute", top:"calc(100% + 10px)", right:0, width:220, background:"#fff", borderRadius:16, border:"1.5px solid #f4f4f5", boxShadow:"0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)", overflow:"hidden", zIndex:200, animation:"dropdownIn .2s cubic-bezier(.34,1.3,.64,1)" }}>
       {/* User info */}
       <div style={{ padding:"16px 18px", borderBottom:"1px solid #f4f4f5", background:"#fffbf7" }}>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
@@ -66,24 +59,22 @@ const UserDropdown = ({ user, onClose }) => {
         </div>
       </div>
 
-      {/* Menu items */}
+      {/* Menu items — Link to replace navigate */}
       <div style={{ padding:"6px" }}>
         {items.map(item => (
-          <button key={item.label}
-            onClick={() => { navigate(item.path); onClose(); }}
-            style={{ width:"100%", display:"flex", alignItems:"center", gap:10, padding:"10px 12px", background:"none", border:"none", borderRadius:10, cursor:"pointer", fontSize:13, fontWeight:600, color:"#27272a", fontFamily:"'DM Sans',sans-serif", textAlign:"left", transition:"background .15s, color .15s" }}
+          <Link key={item.label} to={item.path} onClick={onClose}
+            style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", background:"none", borderRadius:10, fontSize:13, fontWeight:600, color:"#27272a", fontFamily:"'DM Sans',sans-serif", textDecoration:"none", transition:"background .15s, color .15s" }}
             onMouseOver={e=>{ e.currentTarget.style.background="#fff7ed"; e.currentTarget.style.color="#f97316"; }}
             onMouseOut={e=>{ e.currentTarget.style.background="none"; e.currentTarget.style.color="#27272a"; }}>
             <span style={{ color:"#a3a3a3", display:"flex" }}>{item.icon}</span>
             {item.label}
-          </button>
+          </Link>
         ))}
       </div>
 
       {/* Logout */}
       <div style={{ padding:"6px", borderTop:"1px solid #f4f4f5" }}>
-        <button
-          onClick={() => { dispatch(logout()); onClose(); navigate("/"); }}
+        <button onClick={() => { dispatch(logout()); onClose(); navigate("/"); }}
           style={{ width:"100%", display:"flex", alignItems:"center", gap:10, padding:"10px 12px", background:"none", border:"none", borderRadius:10, cursor:"pointer", fontSize:13, fontWeight:600, color:"#ef4444", fontFamily:"'DM Sans',sans-serif", textAlign:"left", transition:"background .15s" }}
           onMouseOver={e=>e.currentTarget.style.background="#fef2f2"}
           onMouseOut={e=>e.currentTarget.style.background="none"}>
@@ -96,9 +87,8 @@ const UserDropdown = ({ user, onClose }) => {
 
 /* ── Main Navbar ──────────────────────────────────────────── */
 const Navbar = () => {
-  const navigate    = useNavigate();
-  const dispatch    = useDispatch();
-
+  const navigate  = useNavigate();
+  const dispatch  = useDispatch();
   const { showMenu, scrolled, searchOpen, searchRef, openMenu, closeMenu, toggleSearch, closeSearch } = useNavbar();
 
   const cartItems   = useSelector(selectCartItems);
@@ -111,16 +101,13 @@ const Navbar = () => {
 
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
-
   const wishlistCount = wishlist.length;
   const fmt = (n) => `$${Number(n).toFixed(2)}`;
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handler = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target))
         setShowDropdown(false);
-      }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -138,7 +125,7 @@ const Navbar = () => {
         .gr-link:hover { color: #f97316 !important; }
         .gr-icon-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: transparent; border: none; cursor: pointer; color: #27272a; transition: background .2s, color .2s, transform .2s; }
         .gr-icon-btn:hover { background: #fff7ed; color: #f97316; transform: scale(1.08); }
-        .gr-drawer-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; text-decoration: none; color: #18181b; font-size: 22px; font-family: 'Cormorant Garamond', serif; font-weight: 700; border-bottom: 1px solid #f4f4f5; transition: color .2s, transform .25s; cursor: pointer; }
+        .gr-drawer-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; text-decoration: none; color: #18181b; font-size: 22px; font-family: 'Cormorant Garamond', serif; font-weight: 700; border-bottom: 1px solid #f4f4f5; transition: color .2s, transform .25s; }
         .gr-drawer-link:hover { color: #f97316; transform: translateX(6px); }
         .gr-arrow { opacity: 0.25; }
         .gr-search-wrap { overflow: hidden; max-width: 0; opacity: 0; transition: max-width .4s cubic-bezier(.4,0,.2,1), opacity .3s ease; }
@@ -182,19 +169,19 @@ const Navbar = () => {
           <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", height:"68px" }}>
 
             {/* Logo */}
-            <a href="/" className="gr-logo" style={{ fontSize:"28px", color:"#18181b", textDecoration:"none", lineHeight:1, display:"flex", alignItems:"baseline", gap:"4px" }}>
+            <Link to="/" className="gr-logo" style={{ fontSize:"28px", color:"#18181b", textDecoration:"none", lineHeight:1, display:"flex", alignItems:"baseline", gap:"4px" }}>
               Gr<span style={{ color:"#f97316" }}>O</span>cify
               <sup style={{ fontSize:"9px", fontFamily:"'DM Sans',sans-serif", fontWeight:600, letterSpacing:"0.12em", color:"#a3a3a3", marginLeft:"2px" }}>FRESH</sup>
-            </a>
+            </Link>
 
             {/* Desktop Nav */}
             <nav className="gr-desktop-nav" style={{ display:"none" }}>
               <ul style={{ display:"flex", gap:"36px", listStyle:"none", margin:0, padding:0 }}>
                 {navLinks.map((item) => (
                   <li key={item.name}>
-                    <a href={item.link} className="gr-link" style={{ fontSize:"12px", fontWeight:600, color:"#27272a", letterSpacing:"0.08em", textTransform:"uppercase" }}>
+                    <Link to={item.link} className="gr-link" style={{ fontSize:"12px", fontWeight:600, color:"#27272a", letterSpacing:"0.08em", textTransform:"uppercase" }}>
                       {item.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -212,7 +199,7 @@ const Navbar = () => {
                 <button className="gr-icon-btn" onClick={toggleSearch}><SearchIcon/></button>
               </div>
 
-              {/* Wishlist — click goes to /wishlist */}
+              {/* Wishlist */}
               <button className="gr-icon-btn"
                 onClick={() => navigate("/wishlist")}
                 style={{ position:"relative", color: wishlistCount > 0 ? "#f97316" : "#27272a" }}>
@@ -234,7 +221,7 @@ const Navbar = () => {
                 )}
               </button>
 
-              {/* Auth — click icon */}
+              {/* Auth dropdown */}
               <div ref={dropdownRef} style={{ position:"relative" }}>
                 <button className="gr-icon-btn"
                   onClick={() => setShowDropdown(v => !v)}
@@ -247,32 +234,25 @@ const Navbar = () => {
                     <FaUserAlt size={16}/>
                   )}
                 </button>
+
                 {showDropdown && (
                   isAuth
                     ? <UserDropdown user={currentUser} onClose={() => setShowDropdown(false)}/>
                     : (
-                      <div style={{
-                        position:"absolute", top:"calc(100% + 15px)", right:0,
-                        width:200, background:"#fff", borderRadius:16,
-                        border:"1.5px solid #f4f4f5",
-                        boxShadow:"0 8px 40px rgba(0,0,0,0.12)",
-                        overflow:"hidden", zIndex:200,
-                        animation:"dropdownIn .2s cubic-bezier(.34,1.3,.64,1)",
-                        padding:"6px",
-                      }}>
-                        <button onClick={() => { navigate("/login"); setShowDropdown(false); }}
-                          style={{ width:"100%", display:"flex", alignItems:"center", gap:10, padding:"11px 14px", background:"none", border:"none", borderRadius:10, cursor:"pointer", fontSize:13, fontWeight:700, color:"#18181b", fontFamily:"'DM Sans',sans-serif", textAlign:"left", transition:"background .15s" }}
+                      <div style={{ position:"absolute", top:"calc(100% + 15px)", right:0, width:200, background:"#fff", borderRadius:16, border:"1.5px solid #f4f4f5", boxShadow:"0 8px 40px rgba(0,0,0,0.12)", overflow:"hidden", zIndex:200, animation:"dropdownIn .2s cubic-bezier(.34,1.3,.64,1)", padding:"6px" }}>
+                        <Link to="/login" onClick={() => setShowDropdown(false)}
+                          style={{ display:"flex", alignItems:"center", gap:10, padding:"11px 14px", background:"none", borderRadius:10, fontSize:13, fontWeight:700, color:"#18181b", fontFamily:"'DM Sans',sans-serif", textDecoration:"none", transition:"background .15s" }}
                           onMouseOver={e=>e.currentTarget.style.background="#fff7ed"}
                           onMouseOut={e=>e.currentTarget.style.background="none"}>
                           <UserIcon/> Sign In
-                        </button>
-                        <button onClick={() => { navigate("/register"); setShowDropdown(false); }}
-                          style={{ width:"100%", display:"flex", alignItems:"center", gap:10, padding:"11px 14px", background:"none", border:"none", borderRadius:10, cursor:"pointer", fontSize:13, fontWeight:600, color:"#52525b", fontFamily:"'DM Sans',sans-serif", textAlign:"left", transition:"background .15s" }}
+                        </Link>
+                        <Link to="/register" onClick={() => setShowDropdown(false)}
+                          style={{ display:"flex", alignItems:"center", gap:10, padding:"11px 14px", background:"none", borderRadius:10, fontSize:13, fontWeight:600, color:"#52525b", fontFamily:"'DM Sans',sans-serif", textDecoration:"none", transition:"background .15s" }}
                           onMouseOver={e=>e.currentTarget.style.background="#f9fafb"}
                           onMouseOut={e=>e.currentTarget.style.background="none"}>
                           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
                           Create Account
-                        </button>
+                        </Link>
                       </div>
                     )
                 )}
@@ -280,7 +260,6 @@ const Navbar = () => {
 
               <button className="gr-icon-btn gr-hamburger" onClick={openMenu}><MenuIcon/></button>
             </div>
-
           </div>
         </div>
       </header>
@@ -289,28 +268,31 @@ const Navbar = () => {
       <div className={`gr-nav-overlay ${showMenu ? "open" : ""}`} onClick={closeMenu}/>
       <aside className={`gr-nav-drawer gr-root ${showMenu ? "open" : ""}`}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"22px 28px 18px", borderBottom:"1px solid #f4f4f5" }}>
-          <span className="gr-logo" style={{ fontSize:"24px", color:"#18181b" }}>Gr<span style={{ color:"#f97316" }}>O</span>cify</span>
-          <button onClick={closeMenu} style={{ background:"none", border:"none", cursor:"pointer", color:"#71717a", padding:"6px", borderRadius:"8px", lineHeight:0 }} onMouseOver={e=>e.currentTarget.style.color="#f97316"} onMouseOut={e=>e.currentTarget.style.color="#71717a"}><CloseIcon/></button>
+          <Link to="/" onClick={closeMenu} className="gr-logo" style={{ fontSize:"24px", color:"#18181b", textDecoration:"none" }}>
+            Gr<span style={{ color:"#f97316" }}>O</span>cify
+          </Link>
+          <button onClick={closeMenu} style={{ background:"none", border:"none", cursor:"pointer", color:"#71717a", padding:"6px", borderRadius:"8px", lineHeight:0 }}><CloseIcon/></button>
         </div>
+
         <div style={{ padding:"20px 28px 0" }}>
           <div style={{ display:"flex", alignItems:"center", background:"#f9f9f9", border:"1.5px solid #e5e5e5", borderRadius:"12px", padding:"0 14px" }}>
             <SearchIcon/>
             <input type="text" placeholder="Search fresh products..." style={{ flex:1, border:"none", background:"transparent", padding:"12px 10px", fontSize:"13px", outline:"none", color:"#18181b", fontFamily:"'DM Sans',sans-serif" }}/>
           </div>
         </div>
+
         <div style={{ padding:"24px 28px 0", flex:1, overflowY:"auto" }}>
           <p style={{ fontSize:"10px", fontWeight:700, color:"#a3a3a3", letterSpacing:"0.14em", textTransform:"uppercase", margin:"0 0 16px", paddingBottom:"10px", borderBottom:"1px solid #f4f4f5" }}>Navigation</p>
           <ul style={{ listStyle:"none", margin:0, padding:0 }}>
             {navLinks.map((item) => (
               <li key={item.name}>
-                <div className="gr-drawer-link" onClick={() => { navigate(item.link); closeMenu(); }}>
+                <Link to={item.link} onClick={closeMenu} className="gr-drawer-link">
                   {item.name}<span className="gr-arrow"><ArrowIcon/></span>
-                </div>
+                </Link>
               </li>
             ))}
           </ul>
 
-          {/* Mobile auth */}
           <div style={{ marginTop:24, paddingTop:20, borderTop:"1px solid #f4f4f5" }}>
             <p style={{ fontSize:"10px", fontWeight:700, color:"#a3a3a3", letterSpacing:"0.14em", textTransform:"uppercase", margin:"0 0 12px" }}>Account</p>
             {isAuth ? (
@@ -329,11 +311,12 @@ const Navbar = () => {
                   { icon:<OrderIcon/>,    label:"My Orders",   path:"/orders"   },
                   { icon:<WishlistIcon/>, label:"My Wishlist", path:"/wishlist" },
                 ].map(item => (
-                  <div key={item.label} className="gr-drawer-link" style={{ fontSize:16 }}
-                    onClick={() => { navigate(item.path); closeMenu(); }}>
+                  <Link key={item.label} to={item.path} onClick={closeMenu}
+                    className="gr-drawer-link"
+                    style={{ fontSize:16, textDecoration:"none" }}>
                     <span style={{ display:"flex", alignItems:"center", gap:10 }}>{item.icon}{item.label}</span>
                     <span className="gr-arrow"><ArrowIcon/></span>
-                  </div>
+                  </Link>
                 ))}
                 <button onClick={() => { dispatch(logout()); closeMenu(); navigate("/"); }}
                   style={{ width:"100%", marginTop:12, padding:"12px", borderRadius:12, background:"#fef2f2", border:"1.5px solid #fecaca", color:"#ef4444", fontSize:13, fontWeight:700, cursor:"pointer", fontFamily:"'DM Sans',sans-serif", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
@@ -342,31 +325,32 @@ const Navbar = () => {
               </div>
             ) : (
               <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
-                <button onClick={() => { navigate("/login"); closeMenu(); }}
-                  style={{ padding:"13px", borderRadius:12, background:"#18181b", border:"none", color:"#fff", fontSize:13, fontWeight:700, cursor:"pointer", fontFamily:"'DM Sans',sans-serif" }}>
+                <Link to="/login" onClick={closeMenu}
+                  style={{ padding:"13px", borderRadius:12, background:"#18181b", color:"#fff", fontSize:13, fontWeight:700, fontFamily:"'DM Sans',sans-serif", textDecoration:"none", textAlign:"center", display:"block" }}>
                   Sign In
-                </button>
-                <button onClick={() => { navigate("/register"); closeMenu(); }}
-                  style={{ padding:"13px", borderRadius:12, background:"#fff", border:"1.5px solid #e5e5e5", color:"#18181b", fontSize:13, fontWeight:700, cursor:"pointer", fontFamily:"'DM Sans',sans-serif" }}>
+                </Link>
+                <Link to="/register" onClick={closeMenu}
+                  style={{ padding:"13px", borderRadius:12, background:"#fff", border:"1.5px solid #e5e5e5", color:"#18181b", fontSize:13, fontWeight:700, fontFamily:"'DM Sans',sans-serif", textDecoration:"none", textAlign:"center", display:"block" }}>
                   Create Account
-                </button>
+                </Link>
               </div>
             )}
           </div>
         </div>
 
         <div style={{ padding:"20px 28px", display:"flex", gap:"10px", borderTop:"1px solid #f4f4f5" }}>
-          <button onClick={() => { navigate("/wishlist"); closeMenu(); }}
-            style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", padding:"12px", borderRadius:"12px", background:"#fff7ed", border:"1.5px solid #fed7aa", color:"#ea580c", fontSize:"12px", fontWeight:600, cursor:"pointer", fontFamily:"'DM Sans',sans-serif" }}>
+          <Link to="/wishlist" onClick={closeMenu}
+            style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", padding:"12px", borderRadius:"12px", background:"#fff7ed", border:"1.5px solid #fed7aa", color:"#ea580c", fontSize:"12px", fontWeight:600, textDecoration:"none" }}>
             <HeartIcon/> Wishlist
             {wishlistCount > 0 && <span style={{ background:"#f97316", color:"#fff", borderRadius:999, fontSize:10, fontWeight:700, padding:"1px 6px" }}>{wishlistCount}</span>}
-          </button>
+          </Link>
           <button onClick={() => { closeMenu(); dispatch(setShowCart(true)); }}
             style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", padding:"12px", borderRadius:"12px", background:"#f97316", border:"none", color:"#fff", fontSize:"12px", fontWeight:600, cursor:"pointer", fontFamily:"'DM Sans',sans-serif" }}>
             <BagIcon/> Cart
             {cartCount > 0 && <span style={{ background:"#fff", color:"#f97316", borderRadius:"999px", fontSize:"10px", fontWeight:700, padding:"1px 7px" }}>{cartCount}</span>}
           </button>
         </div>
+
         <div style={{ padding:"14px 28px 28px", borderTop:"1px solid #f4f4f5" }}>
           <p style={{ fontSize:"10px", color:"#a3a3a3", margin:0, fontStyle:"italic" }}>© 2026 Grocify — Premium Fresh Produce</p>
         </div>
@@ -380,8 +364,9 @@ const Navbar = () => {
             <h2 style={{ margin:0, fontSize:20, fontWeight:800, color:"#18181b" }}>My Cart</h2>
             <p style={{ margin:0, fontSize:12, color:"#a3a3a3", marginTop:2 }}>{cartCount} item{cartCount !== 1 ? "s" : ""}</p>
           </div>
-          <button onClick={() => dispatch(setShowCart(false))} style={{ background:"none", border:"none", cursor:"pointer", color:"#71717a", padding:6, borderRadius:8, lineHeight:0 }} onMouseOver={e=>e.currentTarget.style.color="#f97316"} onMouseOut={e=>e.currentTarget.style.color="#71717a"}><CloseIcon/></button>
+          <button onClick={() => dispatch(setShowCart(false))} style={{ background:"none", border:"none", cursor:"pointer", color:"#71717a", padding:6, borderRadius:8, lineHeight:0 }}><CloseIcon/></button>
         </div>
+
         <div style={{ flex:1, overflowY:"auto", padding:"16px 24px" }}>
           {cartItems.length === 0 ? (
             <div style={{ textAlign:"center", padding:"60px 0", color:"#a3a3a3" }}>
@@ -409,18 +394,21 @@ const Navbar = () => {
             </div>
           )}
         </div>
+
         {cartItems.length > 0 && (
           <div style={{ padding:"20px 24px 28px", borderTop:"1px solid #f4f4f5" }}>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:16 }}>
               <span style={{ fontSize:13, color:"#71717a", fontWeight:500 }}>Subtotal</span>
               <span style={{ fontSize:20, fontWeight:800, color:"#18181b" }}>{fmt(cartTotal)}</span>
             </div>
-            <button onClick={() => { dispatch(setShowCart(false)); navigate("/checkout"); }}
-              style={{ width:"100%", background:"#f97316", color:"#fff", border:"none", borderRadius:14, padding:"15px", fontSize:14, fontWeight:700, cursor:"pointer", fontFamily:"'DM Sans',sans-serif", marginBottom:10 }}
+            {/* Checkout — Link to instead of navigate */}
+            <Link to="/checkout"
+              onClick={() => dispatch(setShowCart(false))}
+              style={{ width:"100%", background:"#f97316", color:"#fff", borderRadius:14, padding:"15px", fontSize:14, fontWeight:700, fontFamily:"'DM Sans',sans-serif", marginBottom:10, textDecoration:"none", textAlign:"center", display:"block" }}
               onMouseOver={e=>e.currentTarget.style.background="#ea580c"}
               onMouseOut={e=>e.currentTarget.style.background="#f97316"}>
               Checkout → {fmt(cartTotal)}
-            </button>
+            </Link>
             <button onClick={() => dispatch(clearCart())}
               style={{ width:"100%", background:"transparent", color:"#a3a3a3", border:"1.5px solid #e5e5e5", borderRadius:14, padding:"12px", fontSize:13, fontWeight:600, cursor:"pointer", fontFamily:"'DM Sans',sans-serif" }}
               onMouseOver={e=>{ e.currentTarget.style.borderColor="#ef4444"; e.currentTarget.style.color="#ef4444"; }}

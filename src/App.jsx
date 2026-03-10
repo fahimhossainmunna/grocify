@@ -16,10 +16,12 @@ import DeliveryInfo from "./pages/delivery/Deliveryinfo";
 import ReturnsPolicy from "./pages/returns/ReturnsPolicy";
 import TrackOrder from "./pages/track-order/TrackOrder";
 import PrivacyPolicy from "./pages/privacy/PrivacyPolicy";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Home />} />

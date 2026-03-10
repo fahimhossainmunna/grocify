@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import groceryImg from "../../assets/grocery.png";
 import useCountUp from "../../hooks/useCountUp";
 
@@ -163,20 +164,20 @@ const Hero = () => {
                 Bred for a high content of beneficial substances. Our products are all fresh, healthy, and delivered straight to your door.
               </p>
 
-              {/* CTA Buttons */}
+              {/* CTA Buttons — Link to instead of a href */}
               <div className="hero-actions" style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-                <a href="shop" className="hero-btn-primary">
+                <Link to="/shop" className="hero-btn-primary">
                   Shop Now
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                     <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                   </svg>
-                </a>
-                <a href="process" className="hero-btn-secondary">
+                </Link>
+                <Link to="/process" className="hero-btn-secondary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                     <polygon points="5 3 19 12 5 21 5 3" />
                   </svg>
                   Watch Process
-                </a>
+                </Link>
               </div>
 
               {/* ── Stats with Count-Up ── */}

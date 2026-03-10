@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 /* ── Social Icons ─────────────────────────────────────────── */
 const FacebookIcon = () => (
@@ -41,12 +42,12 @@ const FOOTER_LINKS = {
     { label: "Contact Us", href: "/contact" },
   ],
   "Support": [
-    { label: "FAQ",             href: "#" },
-    { label: "Delivery Info",   href: "#" },
-    { label: "Returns Policy",  href: "#" },
-    { label: "Track Order",     href: "#" },
-    { label: "Privacy Policy",  href: "#" },
-  ],
+  { label: "FAQ",            to: "/faq"           },  
+  { label: "Delivery Info",  to: "/delivery-info" },
+  { label: "Returns Policy", to: "/returns"       },
+  { label: "Track Order",    to: "/track-order"   },
+  { label: "Privacy Policy", to: "/privacy"       },
+],
 };
 
 const SOCIALS = [
@@ -142,20 +143,28 @@ const Footer = () => {
             </div>
 
             {/* Links Grid — Brand এর পরে, Newsletter এর আগে */}
-            <div className="gr-footer-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:35 }}>
-              {Object.entries(FOOTER_LINKS).map(([title, links]) => (
-                <div key={title}>
-                  <h4 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:18, fontWeight:700, color:"#fff", margin:"0 0 20px", letterSpacing:"-0.01em" }}>{title}</h4>
-                  <ul style={{ listStyle:"none", margin:0, padding:0, display:"flex", flexDirection:"column", gap:12 }}>
-                    {links.map(link => (
-                      <li key={link.label}>
-                        <a href={link.href} className="gr-footer-link">{link.label}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
+            <div className="grid grid-cols-2 gap-30">
+  {Object.entries(FOOTER_LINKS).map(([title, links]) => (
+    <div key={title}>
+      <h4 style={{ fontFamily:"'Cormorant Garamond',serif" }}
+        className="text-lg font-bold text-white mb-5 tracking-tight">
+        {title}
+      </h4>
+      <ul className="list-none m-0 p-0 flex flex-col gap-3">
+        {links.map(link => (
+          <li key={link.label}>
+            <Link
+              to={link.to}
+              className="text-zinc-500 text-sm font-medium no-underline transition-all duration-200 hover:text-orange-500 hover:translate-x-1 inline-block"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
 
             {/* Newsletter */}
             <div style={{ maxWidth:400, flex:1 }}>

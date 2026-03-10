@@ -11,6 +11,11 @@ import Checkout from "./pages/checkout/Checkout";
 import AuthPage from "./pages/authPage/AuthPage";
 import Wishlist from "./pages/wishlist/Wishlist";
 import ProfilePage from "./pages/profile/ProfilePage";
+import FAQ from "./pages/faq/FAQ";
+import DeliveryInfo from "./pages/delivery/Deliveryinfo";
+import ReturnsPolicy from "./pages/returns/ReturnsPolicy";
+import TrackOrder from "./pages/track-order/TrackOrder";
+import PrivacyPolicy from "./pages/privacy/PrivacyPolicy";
 
 function App() {
   return (
@@ -28,6 +33,11 @@ function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/orders" element={<ProfilePage />} />
+          <Route path="faq"           element={<FAQ />}           />
+          <Route path="delivery-info" element={<DeliveryInfo />}  />
+          <Route path="returns"       element={<ReturnsPolicy />} />
+          <Route path="track-order"   element={<TrackOrder />}    />
+          <Route path="privacy"       element={<PrivacyPolicy />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>

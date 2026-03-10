@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { FaUserAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useNavbar from "../../../hooks/useNavbar";
@@ -233,37 +234,49 @@ const Navbar = () => {
                 )}
               </button>
 
-              {/* Auth */}
-              {isAuth ? (
-                <div ref={dropdownRef} style={{ position:"relative", marginLeft:4 }}>
-                  <button
-                    onClick={() => setShowDropdown(v => !v)}
-                    style={{ display:"flex", alignItems:"center", gap:8, padding:"6px 12px 6px 8px", borderRadius:999, border:`1.5px solid ${showDropdown ? "#fed7aa" : "#f4f4f5"}`, background: showDropdown ? "#fff7ed" : "#fff", cursor:"pointer", transition:"all .2s", fontFamily:"'DM Sans',sans-serif" }}
-                    onMouseOver={e=>e.currentTarget.style.borderColor="#fed7aa"}
-                    onMouseOut={e=>{ if(!showDropdown) e.currentTarget.style.borderColor="#f4f4f5"; }}>
-                    <div style={{ width:28, height:28, borderRadius:"50%", background:"linear-gradient(135deg,#f97316,#ea580c)", display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontSize:12, fontWeight:800, flexShrink:0 }}>
+              {/* Auth — click icon */}
+              <div ref={dropdownRef} style={{ position:"relative" }}>
+                <button className="gr-icon-btn"
+                  onClick={() => setShowDropdown(v => !v)}
+                  style={{ color: isAuth ? "#f97316" : "#27272a" }}>
+                  {isAuth ? (
+                    <div style={{ width:28, height:28, borderRadius:"50%", background:"linear-gradient(135deg,#f97316,#ea580c)", display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontSize:13, fontWeight:800 }}>
                       {currentUser?.name?.[0]?.toUpperCase() || "U"}
                     </div>
-                    <span style={{ fontSize:13, fontWeight:600, color:"#18181b", maxWidth:80, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
-                      {currentUser?.name?.split(" ")[0] || "Account"}
-                    </span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a3a3a3" strokeWidth="2.5" strokeLinecap="round"
-                      style={{ transition:"transform .2s", transform: showDropdown ? "rotate(180deg)" : "rotate(0)" }}>
-                      <polyline points="6 9 12 15 18 9"/>
-                    </svg>
-                  </button>
-                  {showDropdown && (
-                    <UserDropdown user={currentUser} onClose={() => setShowDropdown(false)}/>
+                  ) : (
+                    <FaUserAlt size={16}/>
                   )}
-                </div>
-              ) : (
-                <button onClick={() => navigate("/login")}
-                  style={{ display:"flex", alignItems:"center", gap:7, padding:"9px 18px", borderRadius:999, background:"#18181b", color:"#fff", border:"none", cursor:"pointer", fontSize:13, fontWeight:700, fontFamily:"'DM Sans',sans-serif", transition:"all .25s cubic-bezier(.34,1.56,.64,1)", marginLeft:4 }}
-                  onMouseOver={e=>{ e.currentTarget.style.background="#f97316"; e.currentTarget.style.transform="translateY(-1px)"; }}
-                  onMouseOut={e=>{ e.currentTarget.style.background="#18181b"; e.currentTarget.style.transform="translateY(0)"; }}>
-                  <UserIcon/> Sign In
                 </button>
-              )}
+                {showDropdown && (
+                  isAuth
+                    ? <UserDropdown user={currentUser} onClose={() => setShowDropdown(false)}/>
+                    : (
+                      <div style={{
+                        position:"absolute", top:"calc(100% + 15px)", right:0,
+                        width:200, background:"#fff", borderRadius:16,
+                        border:"1.5px solid #f4f4f5",
+                        boxShadow:"0 8px 40px rgba(0,0,0,0.12)",
+                        overflow:"hidden", zIndex:200,
+                        animation:"dropdownIn .2s cubic-bezier(.34,1.3,.64,1)",
+                        padding:"6px",
+                      }}>
+                        <button onClick={() => { navigate("/login"); setShowDropdown(false); }}
+                          style={{ width:"100%", display:"flex", alignItems:"center", gap:10, padding:"11px 14px", background:"none", border:"none", borderRadius:10, cursor:"pointer", fontSize:13, fontWeight:700, color:"#18181b", fontFamily:"'DM Sans',sans-serif", textAlign:"left", transition:"background .15s" }}
+                          onMouseOver={e=>e.currentTarget.style.background="#fff7ed"}
+                          onMouseOut={e=>e.currentTarget.style.background="none"}>
+                          <UserIcon/> Sign In
+                        </button>
+                        <button onClick={() => { navigate("/register"); setShowDropdown(false); }}
+                          style={{ width:"100%", display:"flex", alignItems:"center", gap:10, padding:"11px 14px", background:"none", border:"none", borderRadius:10, cursor:"pointer", fontSize:13, fontWeight:600, color:"#52525b", fontFamily:"'DM Sans',sans-serif", textAlign:"left", transition:"background .15s" }}
+                          onMouseOver={e=>e.currentTarget.style.background="#f9fafb"}
+                          onMouseOut={e=>e.currentTarget.style.background="none"}>
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                          Create Account
+                        </button>
+                      </div>
+                    )
+                )}
+              </div>
 
               <button className="gr-icon-btn gr-hamburger" onClick={openMenu}><MenuIcon/></button>
             </div>

@@ -10,6 +10,7 @@ import ErrorPage from "./pages/errorPage/ErrorPage";
 import Checkout from "./pages/checkout/Checkout";
 import AuthPage from "./pages/authPage/AuthPage";
 import Wishlist from "./pages/wishlist/Wishlist";
+import ProfilePage from "./pages/profile/ProfilePage";
 
 function App() {
   return (
@@ -24,7 +25,9 @@ function App() {
           <Route path="checkout" element={<Checkout />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/register" element={<AuthPage />} />
-          <Route path="/wishlist" element={<Wishlist  />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/orders" element={<ProfilePage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>

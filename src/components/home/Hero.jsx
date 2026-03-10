@@ -230,7 +230,7 @@ const Hero = () => {
                 <div style={{ width: 36, height: 36, background: "#fff7ed", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>🚚</div>
                 <div>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "#18181b" }}>Free Delivery</div>
-                  <div style={{ fontSize: 11, color: "#a3a3a3", marginTop: 1 }}>Orders over ৳999</div>
+                  <div style={{ fontSize: 11, color: "#a3a3a3", marginTop: 1 }}>Orders over $99</div>
                 </div>
               </div>
             </div>

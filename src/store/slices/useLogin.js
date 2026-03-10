@@ -3,9 +3,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../store/slices/authSlice";
 
+// ── Mock user ──
 const MOCK_USER = {
   id: 1,
-  name: "Fahim Hossain Munna",
+  name: "Riya Ahmed",
   email: "riya@example.com",
   phone: "01712345678",
 };
@@ -36,7 +37,17 @@ const useLogin = () => {
     if (!validate()) return;
     setApiErr("");
     setIsLoading(true);
-    await new Promise(r => setTimeout(r, 900));
+
+    // try {
+    //   const result = await login({ email: form.email, password: form.password }).unwrap();
+    //   dispatch(setCredentials({ user: result.user, token: result.token }));
+    //   navigate("/");
+    // } catch (err) {
+    //   setApiErr(err?.data?.message || "Invalid email or password");
+    // }
+
+    // ── Mock login──
+    await new Promise(r => setTimeout(r, 900)); // fake loading
     dispatch(setCredentials({
       user:  { ...MOCK_USER, email: form.email },
       token: "mock-token-123",

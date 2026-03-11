@@ -94,6 +94,7 @@ const LoginForm = ({ onSwitch }) => {
       </div>
 
       <div style={{ textAlign:"right", marginTop:8 }}>
+        {/* Forgot password — no real route, kept as # */}
         <a href="#" style={{ fontSize:12, fontWeight:600, color:"#f97316", textDecoration:"none", opacity:0.85, transition:"opacity .2s" }}
           onMouseOver={e=>e.currentTarget.style.opacity=1} onMouseOut={e=>e.currentTarget.style.opacity=0.85}>
           Forgot password?
@@ -111,7 +112,6 @@ const LoginForm = ({ onSwitch }) => {
         {isLoading ? <><span className="af-spin"/>Signing in...</> : "Sign In →"}
       </button>
 
-      {/* Divider */}
       <div style={{ display:"flex", alignItems:"center", gap:12, margin:"18px 0" }}>
         <div style={{ flex:1, height:"1px", background:"linear-gradient(to right, transparent, #e7e5e4)" }}/>
         <span style={{ fontSize:11, color:"#c4b5a4", fontWeight:600, letterSpacing:"0.05em" }}>OR</span>
@@ -189,6 +189,7 @@ const RegisterForm = ({ onSwitch }) => {
             {agreed && <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>}
           </div>
           <span style={{ fontSize:12, color:"#78716c" }}>
+            {/* Terms & Privacy — no real routes, kept as # */}
             I agree to{" "}<a href="#" style={{ color:"#f97316", textDecoration:"none", fontWeight:600 }}>Terms</a>{" "}&amp;{" "}<a href="#" style={{ color:"#f97316", textDecoration:"none", fontWeight:600 }}>Privacy Policy</a>
           </span>
         </label>
@@ -243,171 +244,44 @@ const AuthPage = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         *, *::before, *::after { box-sizing: border-box; }
-
-        .af-root {
-          font-family: 'DM Sans', sans-serif;
-          min-height: calc(100vh - 102px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 32px 16px;
-          width: 100%;
-          position: relative;
-          overflow: hidden;
-          background: #faf9f7;
-        }
-
-        /* Subtle background pattern */
-        .af-root::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background:
-            radial-gradient(ellipse 60% 50% at 15% 20%, rgba(249,115,22,0.06) 0%, transparent 60%),
-            radial-gradient(ellipse 50% 60% at 85% 80%, rgba(249,115,22,0.04) 0%, transparent 60%);
-          pointer-events: none;
-        }
-
-        /* Floating decorative circles */
-        .af-deco {
-          position: absolute;
-          border-radius: 50%;
-          pointer-events: none;
-        }
-        .af-deco-1 {
-          width: 320px; height: 320px;
-          top: -100px; left: -80px;
-          background: radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 70%);
-        }
-        .af-deco-2 {
-          width: 240px; height: 240px;
-          bottom: -60px; right: -60px;
-          background: radial-gradient(circle, rgba(249,115,22,0.05) 0%, transparent 70%);
-        }
-        .af-deco-3 {
-          width: 80px; height: 80px;
-          top: 30%; right: 8%;
-          border: 1.5px solid rgba(249,115,22,0.10);
-        }
-
-        .af-card {
-          width: 100%;
-          max-width: 520px;
-          background: rgba(255,255,255,0.92);
-          backdrop-filter: blur(20px);
-          border-radius: 24px;
-          border: 1px solid rgba(255,255,255,0.9);
-          padding: 36px 40px;
-          box-shadow:
-            0 1px 0 rgba(255,255,255,0.8) inset,
-            0 4px 6px rgba(0,0,0,0.02),
-            0 20px 60px rgba(0,0,0,0.09),
-            0 0 0 1px rgba(231,229,228,0.6);
-          opacity: 0;
-          transform: translateY(24px) scale(0.98);
-          transition: opacity .55s ease, transform .55s cubic-bezier(.34,1.2,.64,1);
-          position: relative;
-          z-index: 1;
-        }
+        .af-root { font-family:'DM Sans',sans-serif; min-height:calc(100vh - 102px); display:flex; align-items:center; justify-content:center; padding:32px 16px; width:100%; position:relative; overflow:hidden; background:#faf9f7; }
+        .af-root::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 60% 50% at 15% 20%,rgba(249,115,22,0.06) 0%,transparent 60%), radial-gradient(ellipse 50% 60% at 85% 80%,rgba(249,115,22,0.04) 0%,transparent 60%); pointer-events:none; }
+        .af-deco { position:absolute; border-radius:50%; pointer-events:none; }
+        .af-deco-1 { width:320px; height:320px; top:-100px; left:-80px; background:radial-gradient(circle,rgba(249,115,22,0.07) 0%,transparent 70%); }
+        .af-deco-2 { width:240px; height:240px; bottom:-60px; right:-60px; background:radial-gradient(circle,rgba(249,115,22,0.05) 0%,transparent 70%); }
+        .af-deco-3 { width:80px; height:80px; top:30%; right:8%; border:1.5px solid rgba(249,115,22,0.10); }
+        .af-card { width:100%; max-width:520px; background:rgba(255,255,255,0.92); backdrop-filter:blur(20px); border-radius:24px; border:1px solid rgba(255,255,255,0.9); padding:36px 40px; box-shadow:0 1px 0 rgba(255,255,255,0.8) inset,0 4px 6px rgba(0,0,0,0.02),0 20px 60px rgba(0,0,0,0.09),0 0 0 1px rgba(231,229,228,0.6); opacity:0; transform:translateY(24px) scale(0.98); transition:opacity .55s ease,transform .55s cubic-bezier(.34,1.2,.64,1); position:relative; z-index:1; }
         .af-card.show { opacity:1; transform:translateY(0) scale(1); }
-
-        /* Accent line top of card */
-        .af-card::before {
-          content: '';
-          position: absolute;
-          top: -1px; left: 40px; right: 40px;
-          height: 3px;
-          background: linear-gradient(90deg, transparent, #f97316 30%, #fb923c 70%, transparent);
-          border-radius: 999px;
-        }
-
-        /* Tabs */
-        .af-tabs {
-          display: flex;
-          background: #f5f3f0;
-          border-radius: 12px;
-          padding: 3px;
-          gap: 2px;
-          margin-bottom: 24px;
-          border: 1px solid #ede9e6;
-        }
-        .af-tab {
-          flex: 1; padding: 9px 12px;
-          border: none; border-radius: 9px;
-          font-size: 13px; font-weight: 600;
-          cursor: pointer; font-family: 'DM Sans', sans-serif;
-          transition: all .25s cubic-bezier(.34,1.2,.64,1);
-          letter-spacing: 0.01em;
-        }
-        .af-tab-on  {
-          background: #fff;
-          color: #1c1917;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.9) inset;
-        }
-        .af-tab-off { background: transparent; color: #a8a29e; }
-        .af-tab-off:hover { color: #78716c; }
-
-        /* Form transition */
-        .af-form-wrap { overflow: hidden; }
-        .af-slide-in   { animation: slideIn  .28s cubic-bezier(.4,0,.2,1) both; }
-        .af-exit-left  { animation: exitLeft  .28s cubic-bezier(.4,0,.2,1) both; }
-        .af-exit-right { animation: exitRight .28s cubic-bezier(.4,0,.2,1) both; }
+        .af-tabs { display:flex; background:#f5f3f0; border-radius:12px; padding:3px; gap:2px; margin-bottom:24px; border:1px solid #ede9e6; }
+        .af-tab { flex:1; padding:9px 12px; border:none; border-radius:9px; font-size:13px; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all .25s cubic-bezier(.34,1.2,.64,1); letter-spacing:0.01em; }
+        .af-tab-on { background:#fff; color:#1c1917; box-shadow:0 1px 3px rgba(0,0,0,0.08),0 1px 0 rgba(255,255,255,0.9) inset; }
+        .af-tab-off { background:transparent; color:#a8a29e; }
+        .af-tab-off:hover { color:#78716c; }
+        .af-form-wrap { overflow:hidden; }
+        .af-slide-in   { animation:slideIn  .28s cubic-bezier(.4,0,.2,1) both; }
+        .af-exit-left  { animation:exitLeft  .28s cubic-bezier(.4,0,.2,1) both; }
+        .af-exit-right { animation:exitRight .28s cubic-bezier(.4,0,.2,1) both; }
         @keyframes slideIn    { from{opacity:0;transform:translateX(18px)} to{opacity:1;transform:translateX(0)} }
         @keyframes exitLeft   { from{opacity:1;transform:translateX(0)} to{opacity:0;transform:translateX(-18px)} }
         @keyframes exitRight  { from{opacity:1;transform:translateX(0)} to{opacity:0;transform:translateX(18px)} }
-
-        /* Sign in button */
-        .af-btn {
-          width: 100%;
-          display: flex; align-items: center; justify-content: center; gap: 8px;
-          background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-          color: #fff; border: none;
-          border-radius: 12px; padding: 13px 20px;
-          font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
-          cursor: pointer; font-family: 'DM Sans', sans-serif;
-          transition: all .25s cubic-bezier(.34,1.2,.64,1);
-          box-shadow: 0 4px 14px rgba(249,115,22,0.32), 0 1px 0 rgba(255,255,255,0.15) inset;
-        }
-        .af-btn:hover:not(:disabled) {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(249,115,22,0.40), 0 1px 0 rgba(255,255,255,0.15) inset;
-        }
-        .af-btn:active:not(:disabled) { transform: translateY(0); }
+        .af-btn { width:100%; display:flex; align-items:center; justify-content:center; gap:8px; background:linear-gradient(135deg,#f97316 0%,#ea580c 100%); color:#fff; border:none; border-radius:12px; padding:13px 20px; font-size:14px; font-weight:700; letter-spacing:0.02em; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all .25s cubic-bezier(.34,1.2,.64,1); box-shadow:0 4px 14px rgba(249,115,22,0.32),0 1px 0 rgba(255,255,255,0.15) inset; }
+        .af-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 24px rgba(249,115,22,0.40),0 1px 0 rgba(255,255,255,0.15) inset; }
+        .af-btn:active:not(:disabled) { transform:translateY(0); }
         .af-btn:disabled { opacity:.55; cursor:not-allowed; }
-
-        .af-spin {
-          width:14px; height:14px;
-          border:2px solid rgba(255,255,255,0.3);
-          border-top-color:#fff; border-radius:50%;
-          animation:spin .7s linear infinite;
-          display:inline-block; flex-shrink:0;
-        }
+        .af-spin { width:14px; height:14px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; display:inline-block; flex-shrink:0; }
         @keyframes spin { to{transform:rotate(360deg)} }
-
-        /* Trust badges */
-        .af-badge {
-          display: inline-flex; align-items: center; gap: 5px;
-          font-size: 11px; font-weight: 600; color: #a8a29e;
-          letter-spacing: 0.02em;
-        }
-
-        @media (max-width: 600px) {
-          .af-root { padding: 20px 14px; min-height: calc(100vh - 102px); }
-          .af-card { padding: 28px 20px; border-radius: 20px; }
-          .af-card::before { left: 24px; right: 24px; }
-          .af-deco-3 { display: none; }
-        }
+        .af-badge { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; color:#a8a29e; letter-spacing:0.02em; }
+        @media (max-width:600px) { .af-root{padding:20px 14px;min-height:calc(100vh - 102px)} .af-card{padding:28px 20px;border-radius:20px} .af-deco-3{display:none} }
       `}</style>
 
       <div className="af-root">
-        {/* Decorative bg elements */}
         <div className="af-deco af-deco-1"/>
         <div className="af-deco af-deco-2"/>
         <div className="af-deco af-deco-3"/>
 
         <div className={`af-card ${mounted ? "show" : ""}`}>
 
-          {/* Logo + Back */}
+          {/* Logo + Back — Link to instead of a href */}
           <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:28 }}>
             <Link to="/" style={{ textDecoration:"none" }}>
               <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:26, fontWeight:700, color:"#1c1917", letterSpacing:"-0.02em" }}>

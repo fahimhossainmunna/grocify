@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import basketImg from "../../assets/basket-full-vegetables.png";
 import freshFruitsImg from "../../assets/fresh-fruits.png";
 import fruitsVeggiesImg from "../../assets/fruits-and-veggies.png";
@@ -89,6 +90,7 @@ const About = () => {
         @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
         @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:none} }
         .ab-hero-img { animation: float 5s ease-in-out infinite; }
+        .ab-link-btn { display:inline-flex; align-items:center; gap:8px; text-decoration:none; border-radius:14px; padding:14px 28px; font-size:14px; font-weight:700; transition:all .2s; }
         @media (max-width: 768px) {
           .ab-hero-grid { flex-direction: column !important; }
           .ab-values-grid { grid-template-columns: 1fr !important; }
@@ -106,15 +108,14 @@ const About = () => {
 
         {/* ── HERO ──────────────────────────────────────────── */}
         <section style={{ background:"linear-gradient(135deg,#fffbf7 0%,#fff 55%,#fff7ed 100%)", padding:"80px 24px 0", overflow:"hidden", position:"relative" }}>
-          {/* Decorative blob */}
           <div style={{ position:"absolute", top:-60, right:-60, width:400, height:400, borderRadius:"50%", background:"radial-gradient(circle,rgba(249,115,22,0.06) 0%,transparent 70%)", pointerEvents:"none" }}/>
 
           <div style={{ maxWidth:1280, margin:"0 auto" }}>
             {/* Breadcrumb */}
             <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:12, color:"#a3a3a3", fontWeight:500, marginBottom:48, animation:"fadeUp .6s ease both" }}>
-              <a href="/" style={{ color:"#a3a3a3", textDecoration:"none" }}
+              <Link to="/" style={{ color:"#a3a3a3", textDecoration:"none" }}
                 onMouseOver={e => e.currentTarget.style.color="#f97316"}
-                onMouseOut={e => e.currentTarget.style.color="#a3a3a3"}>Home</a>
+                onMouseOut={e => e.currentTarget.style.color="#a3a3a3"}>Home</Link>
               <span>›</span>
               <span style={{ color:"#18181b", fontWeight:600 }}>About Us</span>
             </div>
@@ -133,33 +134,32 @@ const About = () => {
                   Grocify was born from a simple belief: everyone deserves access to fresh, honest food. We connect urban families directly with the farmers who grow their food — cutting out the middleman, preserving nutrients, and building a food system that works for people and the planet.
                 </p>
                 <div style={{ display:"flex", gap:16, flexWrap:"wrap", animation:"fadeUp .6s .4s ease both", opacity:0, animationFillMode:"forwards" }}>
-                  <a href="/shop"
+                  {/* Link to /shop */}
+                  <Link to="/shop"
                     style={{ display:"inline-flex", alignItems:"center", gap:8, background:"#f97316", color:"#fff", textDecoration:"none", borderRadius:14, padding:"14px 28px", fontSize:14, fontWeight:700, transition:"all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background="#ea580c"; e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 8px 24px rgba(249,115,22,0.35)"; }}
                     onMouseOut={e => { e.currentTarget.style.background="#f97316"; e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow="none"; }}>
                     Shop Fresh Now →
-                  </a>
-                  <a href="/process"
+                  </Link>
+                  {/* Link to /process */}
+                  <Link to="/process"
                     style={{ display:"inline-flex", alignItems:"center", gap:8, background:"transparent", color:"#18181b", textDecoration:"none", borderRadius:14, padding:"14px 28px", fontSize:14, fontWeight:700, border:"1.5px solid #e5e5e5", transition:"all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.borderColor="#f97316"; e.currentTarget.style.color="#f97316"; }}
                     onMouseOut={e => { e.currentTarget.style.borderColor="#e5e5e5"; e.currentTarget.style.color="#18181b"; }}>
                     Our Process
-                  </a>
+                  </Link>
                 </div>
               </div>
 
               {/* Image stack */}
               <div style={{ flex:1, position:"relative", display:"flex", justifyContent:"center", alignItems:"center", minHeight:420 }}>
                 <div style={{ position:"relative", width:320, height:380 }}>
-                  {/* Back card */}
                   <div style={{ position:"absolute", top:20, right:-20, width:260, height:300, borderRadius:24, overflow:"hidden", background:"#fff7ed", border:"1.5px solid #fed7aa" }}>
                     <img src={freshFruitsImg} alt="" style={{ width:"100%", height:"100%", objectFit:"cover", opacity:0.85 }}/>
                   </div>
-                  {/* Main card */}
                   <div className="ab-hero-img" style={{ position:"absolute", top:0, left:0, width:280, height:340, borderRadius:24, overflow:"hidden", background:"#fff", boxShadow:"0 32px 80px rgba(0,0,0,0.15)", border:"1.5px solid #f4f4f5" }}>
                     <img src={basketImg} alt="Fresh basket" style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
                   </div>
-                  {/* Floating badge */}
                   <div style={{ position:"absolute", bottom:-16, right:10, background:"#fff", borderRadius:16, padding:"12px 18px", boxShadow:"0 12px 32px rgba(0,0,0,0.12)", border:"1px solid #f4f4f5", display:"flex", alignItems:"center", gap:10, animation:"float 4s 1s ease-in-out infinite" }}>
                     <span style={{ fontSize:24 }}>🌾</span>
                     <div>
@@ -201,7 +201,6 @@ const About = () => {
         <section style={{ padding:"96px 24px", background:"#fafafa" }}>
           <div style={{ maxWidth:1280, margin:"0 auto" }}>
             <div className="ab-story-grid" style={{ display:"flex", gap:80, alignItems:"center" }}>
-              {/* Images */}
               <FadeIn direction="left" delay={0}>
                 <div style={{ flex:1, position:"relative", minHeight:420 }}>
                   <div style={{ borderRadius:24, overflow:"hidden", background:"#f0fdf4", aspectRatio:"4/3" }}>
@@ -214,7 +213,6 @@ const About = () => {
                 </div>
               </FadeIn>
 
-              {/* Timeline */}
               <div style={{ flex:1 }}>
                 <FadeIn direction="right" delay={0.1}>
                   <div className="ab-pill" style={{ marginBottom:20 }}>📖 Our Journey</div>
@@ -230,7 +228,6 @@ const About = () => {
                   {MILESTONES.map((m, i) => (
                     <FadeIn key={m.year} delay={0.15 + i * 0.08}>
                       <div style={{ display:"flex", gap:20, paddingBottom: i < MILESTONES.length - 1 ? 24 : 0, position:"relative" }}>
-                        {/* Line */}
                         <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:0 }}>
                           <div className="ab-milestone-dot"/>
                           {i < MILESTONES.length - 1 && (
@@ -324,12 +321,13 @@ const About = () => {
               <p style={{ fontSize:15, color:"#71717a", lineHeight:1.85, margin:"0 auto 36px", maxWidth:480 }}>
                 Join over a million families who've switched to farm-fresh. Your first order ships free.
               </p>
-              <a href="/shop"
+              {/* Link to /shop */}
+              <Link to="/shop"
                 style={{ display:"inline-flex", alignItems:"center", gap:10, background:"#f97316", color:"#fff", textDecoration:"none", borderRadius:16, padding:"16px 36px", fontSize:15, fontWeight:700, transition:"all .2s", boxShadow:"0 8px 32px rgba(249,115,22,0.35)" }}
                 onMouseOver={e => { e.currentTarget.style.background="#ea580c"; e.currentTarget.style.transform="translateY(-3px)"; e.currentTarget.style.boxShadow="0 16px 48px rgba(249,115,22,0.45)"; }}
                 onMouseOut={e => { e.currentTarget.style.background="#f97316"; e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow="0 8px 32px rgba(249,115,22,0.35)"; }}>
                 Start Shopping Fresh →
-              </a>
+              </Link>
             </FadeIn>
           </div>
         </section>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const SECTIONS = [
   {
     title: "1. Information We Collect",
@@ -118,6 +120,7 @@ const PrivacyPolicy = () => (
         <ol className="list-none p-0 m-0 grid grid-cols-1 sm:grid-cols-2 gap-2">
           {SECTIONS.map((s, i) => (
             <li key={i}>
+              {/* in-page hash links — <a href="#"> is correct here, not <Link> */}
               <a href={`#section-${i}`} className="text-sm text-orange-600 hover:text-orange-700 no-underline hover:underline font-medium">
                 {s.title}
               </a>

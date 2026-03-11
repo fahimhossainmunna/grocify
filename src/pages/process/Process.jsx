@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import Container from "../../components/ui/Container";
 import Flex from "../../components/ui/Flex";
 
@@ -137,9 +138,9 @@ const Process = () => {
           <Container>
             {/* Breadcrumb */}
             <Flex className="gap-2 mb-12" style={{ fontSize: 12, color: "#a3a3a3", fontWeight: 500, animation: "fadeUp .5s ease both" }}>
-              <a href="/" style={{ color: "#a3a3a3", textDecoration: "none" }}
+              <Link to="/" style={{ color: "#a3a3a3", textDecoration: "none" }}
                 onMouseOver={e => e.currentTarget.style.color = "#f97316"}
-                onMouseOut={e => e.currentTarget.style.color = "#a3a3a3"}>Home</a>
+                onMouseOut={e => e.currentTarget.style.color = "#a3a3a3"}>Home</Link>
               <span>›</span>
               <span style={{ color: "#18181b", fontWeight: 600 }}>Our Process</span>
             </Flex>
@@ -170,7 +171,6 @@ const Process = () => {
                   <div style={{ width: 300, height: 300, borderRadius: "50%", background: "linear-gradient(135deg,#fff7ed,#f0fdf4)", border: "2px dashed rgba(249,115,22,0.25)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 100 }}>
                     🌿
                   </div>
-                  {/* Orbit badges */}
                   {[
                     { emoji: "🌾", label: "Farm",     angle: -60  },
                     { emoji: "❄️", label: "Cold",     angle: 0    },
@@ -213,15 +213,12 @@ const Process = () => {
               {STEPS.map((step, i) => (
                 <FadeIn key={step.number} delay={i * 0.08}>
                   <div className="pr-step-card">
-                    {/* Number watermark */}
                     <div style={{ position: "absolute", top: 16, right: 20, fontFamily: "'Cormorant Garamond',serif", fontSize: 72, fontWeight: 700, color: step.color, opacity: 0.07, lineHeight: 1, userSelect: "none" }}>
                       {step.number}
                     </div>
-                    {/* Icon */}
                     <div style={{ width: 56, height: 56, borderRadius: 16, background: step.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, marginBottom: 20 }}>
                       {step.icon}
                     </div>
-                    {/* Step number pill */}
                     <div style={{ display: "inline-flex", alignItems: "center", background: step.bg, borderRadius: 999, padding: "2px 10px", marginBottom: 10 }}>
                       <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.10em", color: step.color }}>STEP {step.number}</span>
                     </div>
@@ -310,12 +307,13 @@ const Process = () => {
                 <p style={{ fontSize: 14, color: "#71717a", margin: "0 auto 32px", maxWidth: 440, lineHeight: 1.8 }}>
                   Now that you know the process, taste it for yourself. Your first delivery ships free.
                 </p>
-                <a href="/shop"
+                {/* Link to /shop */}
+                <Link to="/shop"
                   style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#f97316", color: "#fff", textDecoration: "none", borderRadius: 14, padding: "14px 32px", fontSize: 14, fontWeight: 700, transition: "all .2s", boxShadow: "0 8px 24px rgba(249,115,22,0.30)" }}
                   onMouseOver={e => { e.currentTarget.style.background = "#ea580c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseOut={e => { e.currentTarget.style.background = "#f97316"; e.currentTarget.style.transform = "none"; }}>
                   Shop Fresh Now →
-                </a>
+                </Link>
               </div>
             </FadeIn>
           </Container>
